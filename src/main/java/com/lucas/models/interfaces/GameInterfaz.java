@@ -4,4 +4,5 @@ public interface GameInterfaz {
     public void iniciar();
     public void nextRound();
     public void finalizar();
+    public void reiniciar();
 }

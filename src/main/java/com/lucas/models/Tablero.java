@@ -25,7 +25,7 @@ public class Tablero {
         return posicion.get(pos);
     }
 
-    public void showTablero(){
+    public void show(){
         for(char[] i: tablero){
             for (char j : i) {
                 if(j != ('X'|'O'))

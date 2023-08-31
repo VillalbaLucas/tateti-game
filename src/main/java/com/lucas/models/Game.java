@@ -1,61 +1,65 @@
 package com.lucas.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.lucas.models.interfaces.GameInterfaz;
 
 public class Game implements GameInterfaz {
-    private Jugador jugador1, jugador2;
+    private List<Jugador> jugadores = new ArrayList<>(2);
     private Tablero tablero;
     private Scanner scan = new Scanner(System.in);
 
     private void seleccionarJugador(){
         System.out.println("---Seleccione al jugador 1---");
         System.out.print("Nombre: ");
-        jugador1 = new Jugador('X', scan.nextLine());
+        jugadores.add(new Jugador('X', scan.nextLine()));
 
         System.out.println("---Seleccione al jugador 2---");
         System.out.print("Nombre: ");
-        jugador2 = new Jugador('O', scan.nextLine());
+        jugadores.add(new Jugador('O', scan.nextLine()));
     }
 
-    public Game(Tablero tab){
+    public Game(){
         seleccionarJugador();
-        tablero = tab;
+        tablero = new Tablero();
     }
 
     public void iniciar(){
         System.out.println("Juego iniciado! ");
         boolean enPartida = true;
-        int posicion;
+        int posicion, turno=0;
 
         while(enPartida){
-            System.out.println("Turno del jugador " + jugador1.getName() + ", Donde pondras tu ficha?");
+            turno /= 1; 
+            System.out.println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha?");
             do {
+                tablero.show();
                 posicion = scan.nextInt();
+                System.out.println("pos");
                 if(tablero.getSimbolIn(tablero.getPosicion(posicion)) == ('X' | 'O'))
                     System.out.println("Casilla no disponible, vuelva a elejir una...");
             } while(tablero.getSimbolIn(tablero.getPosicion(posicion)) != ('X' | 'O'));
 
-            tablero.marcarCasilla(jugador1.getSimbol(), tablero.getPosicion(posicion));
-
+            tablero.marcarCasilla(jugadores.get(turno).getSimbol(), tablero.getPosicion(posicion));
+            turno++; 
         }
     }
 
+    @Override
     public void reiniciar(){
-
+        System.out.println("Reiniciar!");
     }
 
     @Override
     public void nextRound() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nextRound'");
+        System.out.println("NextRound");
     }
 
     @Override
     public void finalizar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'finalizar'");
+        System.out.println("Finalizado!");
     }
 
 
