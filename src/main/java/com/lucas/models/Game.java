@@ -16,7 +16,7 @@ public class Game implements GameInterfaz {
 
         System.out.println("---Seleccione al jugador 2---");
         System.out.print("Nombre: ");
-        jugador1 = new Jugador('O', scan.nextLine());
+        jugador2 = new Jugador('O', scan.nextLine());
     }
 
     public Game(Tablero tab){
@@ -27,10 +27,18 @@ public class Game implements GameInterfaz {
     public void iniciar(){
         System.out.println("Juego iniciado! ");
         boolean enPartida = true;
+        int posicion;
 
         while(enPartida){
-            System.out.println("Turno del jugador " + jugador1.getName());
-            
+            System.out.println("Turno del jugador " + jugador1.getName() + ", Donde pondras tu ficha?");
+            do {
+                posicion = scan.nextInt();
+                if(tablero.getSimbolIn(tablero.getPosicion(posicion)) == ('X' | 'O'))
+                    System.out.println("Casilla no disponible, vuelva a elejir una...");
+            } while(tablero.getSimbolIn(tablero.getPosicion(posicion)) != ('X' | 'O'));
+
+            tablero.marcarCasilla(jugador1.getSimbol(), tablero.getPosicion(posicion));
+
         }
     }
 
