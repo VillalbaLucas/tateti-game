@@ -13,6 +13,7 @@ public class Tablero {
         return tablero[pos[0]][pos[1]];
     }
 
-    
-
+    public char[][] getTablero(){
+        return tablero;
+    }
 }
