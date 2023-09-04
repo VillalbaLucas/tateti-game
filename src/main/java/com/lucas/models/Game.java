@@ -12,12 +12,12 @@ public class Game implements GameInterfaz {
     private Scanner scan = new Scanner(System.in);
 
     private void seleccionarJugador(){
-        System.out.println("---Seleccione al jugador 1---");
-        System.out.print("Nombre: ");
+        println("---Seleccione al jugador 1---");
+        print("Nombre: ");
         jugadores.add(new Jugador('X', scan.nextLine()));
 
-        System.out.println("---Seleccione al jugador 2---");
-        System.out.print("Nombre: ");
+        println("---Seleccione al jugador 2---");
+        print("Nombre: ");
         jugadores.add(new Jugador('O', scan.nextLine()));
     }
 
@@ -27,23 +27,29 @@ public class Game implements GameInterfaz {
     }
 
     public void iniciar(){
-        System.out.println("Juego iniciado! ");
+        println("Juego iniciado! ");
         boolean enPartida = true;
-        int posicion, turno=0;
+        int posicion,turno, cont=0;
 
-        while(enPartida){
-            turno /= 1; 
-            System.out.println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha?");
-            do {
+        while(enPartida){ 
+            boolean posValida = false;
+            turno = cont%2;
+            println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha?");
+            do{
                 tablero.show();
                 posicion = scan.nextInt();
-                System.out.println("pos");
-                if(tablero.getSimbolIn(tablero.getPosicion(posicion)) == ('X' | 'O'))
-                    System.out.println("Casilla no disponible, vuelva a elejir una...");
-            } while(tablero.getSimbolIn(tablero.getPosicion(posicion)) != ('X' | 'O'));
+                if(posicion>0 & posicion<10){
+                    if(tablero.getSimbolIn(tablero.getPosicion(posicion)) != 'X' & tablero.getSimbolIn(tablero.getPosicion(posicion)) != 'O')
+                        posValida = true;
+                    else
+                        println("Casilla Ocupada!, vuelva a elejir una...");
+                }
+                else
+                    print("Casilla no disponible, vuelva a elejir una...");
 
+            }while(!posValida);
             tablero.marcarCasilla(jugadores.get(turno).getSimbol(), tablero.getPosicion(posicion));
-            turno++; 
+            cont++; 
         }
     }
 
@@ -62,5 +68,11 @@ public class Game implements GameInterfaz {
         System.out.println("Finalizado!");
     }
 
+    private void print(Object line){
+        System.out.print(line);
+    }
+    private void println(Object line){
+        System.out.println(line);
+    }
 
 }
