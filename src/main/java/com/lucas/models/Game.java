@@ -1,5 +1,6 @@
 package com.lucas.models;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,12 +13,10 @@ public class Game implements GameInterfaz {
     private Scanner scan = new Scanner(System.in);
 
     private void seleccionarJugador(){
-        println("---Seleccione al jugador 1---");
-        print("Nombre: ");
+        print("---Seleccione al jugador 1---\nNombre: ");
         jugadores.add(new Jugador('X', scan.nextLine()));
 
-        println("---Seleccione al jugador 2---");
-        print("Nombre: ");
+        print("---Seleccione al jugador 2---\nNombre: ");
         jugadores.add(new Jugador('O', scan.nextLine()));
     }
 
@@ -45,17 +44,24 @@ public class Game implements GameInterfaz {
                         println("Casilla Ocupada!, vuelva a elejir una...");
                 }
                 else
-                    print("Casilla no disponible, vuelva a elejir una...");
+                    println("Casilla no disponible, vuelva a elejir una...\nValores disponibles:[1-9].");
 
             }while(!posValida);
             tablero.marcarCasilla(jugadores.get(turno).getSimbol(), tablero.getPosicion(posicion));
-            cont++; 
+            cont++;
+            if(cont%2==0) 
+                reiniciar();
         }
     }
 
     @Override
     public void reiniciar(){
-        System.out.println("Reiniciar!");
+        for(int j=0; j<jugadores.size(); j++){
+            println("---Seleccione al jugador "+(j+1)+"---\nNombre: ");
+            String nombre = scan.next();
+            jugadores.get(j).setPuntos(0).setName(nombre);
+        }
+        tablero.setTablero();
     }
 
     @Override
@@ -66,6 +72,12 @@ public class Game implements GameInterfaz {
     @Override
     public void finalizar() {
         System.out.println("Finalizado!");
+    }
+
+    @Override
+    public void getGanador() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGanador'");
     }
 
     private void print(Object line){
