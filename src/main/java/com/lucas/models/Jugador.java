@@ -23,15 +23,17 @@ public class Jugador {
         return name;
     }
 
-    public void setName(String name) {
+    public Jugador setName(String name) {
         this.name = name;
+        return this;
     }
 
     public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
+    public Jugador setPuntos(int puntos) {
         this.puntos = puntos;
+        return this;
     }
 }
