@@ -63,4 +63,31 @@ public class Tablero {
             tablero[row][col] = '0';
         }
     }
+    /**
+     * Verifica si es que hau una raya echa en filas, columnas o diagonal de la matriz.
+     * @param c caracter o simbolo que utiliza cada jugador.
+     * @return booleano si es que hay una raya echa.
+     */
+    public boolean enRaya(char c){
+        boolean raya = false;
+        int[] cont = new int[3];
+
+        for(int i=0; i<9; i++){
+            int col = i%3, row = i/3;
+
+            cont[0] = tablero[row][col] == c? ++cont[0]: 0; 
+            cont[1] = tablero[col][row] == c? ++cont[1]: 0; 
+            cont[2] = tablero[col][col] == c? ++cont[2]: 0; 
+
+            if(col == 2){
+                raya = cont[0]==3? true: raya;
+                raya = cont[1]==3? true: raya;
+                raya = cont[2]==3? true: raya;
+
+                cont[0]=0; cont[1]=0; cont[2]=0;
+            }
+        }
+        
+        return raya;
+    }
 }
