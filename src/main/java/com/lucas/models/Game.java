@@ -1,6 +1,5 @@
 package com.lucas.models;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -49,8 +48,18 @@ public class Game implements GameInterfaz {
             }while(!posValida);
             tablero.marcarCasilla(jugadores.get(turno).getSimbol(), tablero.getPosicion(posicion));
             cont++;
-            if(cont%2==0) 
-                reiniciar();
+
+            if(cont>=5){
+                if(tablero.enRaya(jugadores.get(0).getSimbol())){
+                    println("Ganador de la ronda, "+jugadores.get(0).getName());
+                    reiniciar();   
+                }
+                if(tablero.enRaya(jugadores.get(1).getSimbol())){
+                    println("Ganador de la ronda, "+jugadores.get(1).getName());
+                    reiniciar();
+                }
+                
+            }
         }
     }
 
