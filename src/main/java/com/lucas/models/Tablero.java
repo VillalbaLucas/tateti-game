@@ -74,10 +74,9 @@ public class Tablero {
 
         for(int i=0; i<9; i++){
             int col = i%3, row = i/3;
-
-            cont[0] = tablero[row][col] == c? ++cont[0]: 0; 
-            cont[1] = tablero[col][row] == c? ++cont[1]: 0; 
-            cont[2] = tablero[col][col] == c? ++cont[2]: 0; 
+            cont[0] = tablero[row][col] == c? ++cont[0]: 0; //verifica filas 
+            cont[1] = tablero[col][row] == c? ++cont[1]: 0; //verifica columnas
+            cont[2] = tablero[col][col] == c? ++cont[2]: 0; //verifica diagonal
 
             if(col == 2){
                 raya = cont[0]==3? true: raya;

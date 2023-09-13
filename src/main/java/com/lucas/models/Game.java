@@ -32,7 +32,7 @@ public class Game implements GameInterfaz {
         while(enPartida){ 
             boolean posValida = false;
             turno = cont%2;
-            println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha?");
+            println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha? \n");
             do{
                 tablero.show();
                 posicion = scan.nextInt();
@@ -50,43 +50,58 @@ public class Game implements GameInterfaz {
             cont++;
 
             if(cont>=5){
-                if(tablero.enRaya(jugadores.get(0).getSimbol())){
-                    println("Ganador de la ronda, "+jugadores.get(0).getName());
-                    reiniciar();   
+                for(int i = 0; i<2; i++ ){
+                    if(tablero.enRaya(jugadores.get(i).getSimbol())){
+                    jugadores.get(i).setPuntos(jugadores.get(i).getPuntos()+1);
+                    println("Ganador de la ronda, "+jugadores.get(i).getName() + " /Puntos: " + jugadores.get(i).getPuntos());
+                    nextRound(); 
+                    }  
                 }
-                if(tablero.enRaya(jugadores.get(1).getSimbol())){
-                    println("Ganador de la ronda, "+jugadores.get(1).getName());
-                    reiniciar();
-                }
-                
             }
         }
     }
 
     @Override
     public void reiniciar(){
-        for(int j=0; j<jugadores.size(); j++){
-            println("---Seleccione al jugador "+(j+1)+"---\nNombre: ");
+        for(int i=0; i<jugadores.size(); i++){
+            println("---Seleccione al jugador "+(i+1)+"---\nNombre: ");
             String nombre = scan.next();
-            jugadores.get(j).setPuntos(0).setName(nombre);
+            jugadores.get(i).setPuntos(0).setName(nombre);
         }
         tablero.setTablero();
     }
 
     @Override
     public void nextRound() {
-        System.out.println("NextRound");
+        print("Jugar otra ronda? Y(yes)/N(no): ");
+        String opcion = scan.next();
+
+        switch (opcion.toUpperCase()){
+            case "Y" :
+                tablero.setTablero();
+                println("---Siguiente Ronda--- \n");
+                break;
+            case "N" :
+                getGanador();
+                reiniciar();
+                break;
+        }
     }
 
     @Override
     public void finalizar() {
-        System.out.println("Finalizado!");
+        println("Finalizado!");
     }
 
     @Override
     public void getGanador() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGanador'");
+        String ganador;
+        if(jugadores.get(0).getPuntos() == jugadores.get(1).getPuntos()){
+            ganador = "Empate!";
+        }else
+            ganador = jugadores.get(0).getPuntos() > jugadores.get(1).getPuntos()? jugadores.get(0).getName() : jugadores.get(0).getName();  
+        
+        println("Ganador de las partidas... " + ganador );
     }
 
     private void print(Object line){
