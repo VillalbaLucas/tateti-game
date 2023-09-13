@@ -7,4 +7,4 @@ Un juego simple de tateti en java.
 - Pedira ingresar 2 nombres de jugadores.
 - A continuacion mostrara en consola el tablero.
 - Empieza a jugar ingresando numeros del *1 al 9*.
-- Finalizando mostrara el ganador de la ronda y reiniciara el juego.
+- Finalizando mostrara el ganador de la ronda, a continuacion pregunta si quiere jugaro otra ronda o quiere reiniciar el juego.
