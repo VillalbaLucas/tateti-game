@@ -35,6 +35,7 @@ public class Game implements GameInterfaz {
             println("Turno del jugador " + jugadores.get(turno).getName() + ", Donde pondras tu ficha? \n");
             do{
                 tablero.show();
+                print("Posicion: ");
                 posicion = scan.nextInt();
                 if(posicion>0 & posicion<10){
                     if(tablero.getSimbolIn(tablero.getPosicion(posicion)) != 'X' & tablero.getSimbolIn(tablero.getPosicion(posicion)) != 'O')
@@ -52,10 +53,10 @@ public class Game implements GameInterfaz {
             if(cont>=5){
                 for(int i = 0; i<2; i++ ){
                     if(tablero.enRaya(jugadores.get(i).getSimbol())){
-                    jugadores.get(i).setPuntos(jugadores.get(i).getPuntos()+1);
-                    println("Ganador de la ronda, "+jugadores.get(i).getName() + " /Puntos: " + jugadores.get(i).getPuntos());
-                    nextRound(); 
-                    }  
+                        jugadores.get(i).setPuntos(jugadores.get(i).getPuntos()+1);
+                        println("Ganador de la ronda, "+jugadores.get(i).getName() + " / Puntos: " + jugadores.get(i).getPuntos());
+                        nextRound(); 
+                    }   
                 }
             }
         }
@@ -64,9 +65,9 @@ public class Game implements GameInterfaz {
     @Override
     public void reiniciar(){
         for(int i=0; i<jugadores.size(); i++){
-            println("---Seleccione al jugador "+(i+1)+"---\nNombre: ");
-            String nombre = scan.next();
-            jugadores.get(i).setPuntos(0).setName(nombre);
+            print("---Seleccione al jugador "+(i+1)+"---\nNombre: ");
+            jugadores.get(i).setPuntos(0).setName(scan.next());
+            println("");
         }
         tablero.setTablero();
     }
@@ -75,6 +76,7 @@ public class Game implements GameInterfaz {
     public void nextRound() {
         print("Jugar otra ronda? Y(yes)/N(no): ");
         String opcion = scan.next();
+        println("");
 
         switch (opcion.toUpperCase()){
             case "Y" :
@@ -95,13 +97,15 @@ public class Game implements GameInterfaz {
 
     @Override
     public void getGanador() {
-        String ganador;
+        Jugador ganador = null;
         if(jugadores.get(0).getPuntos() == jugadores.get(1).getPuntos()){
-            ganador = "Empate!";
-        }else
-            ganador = jugadores.get(0).getPuntos() > jugadores.get(1).getPuntos()? jugadores.get(0).getName() : jugadores.get(0).getName();  
+            println("Ganador de las partidas... Empate!");
+        }else{
+            ganador = jugadores.get(0).getPuntos() > jugadores.get(1).getPuntos()? jugadores.get(0) : jugadores.get(0);  
+            println("Ganador de las partidas... " + ganador.getName());
+            println("Puntos totales: " + ganador.getPuntos());
+        }
         
-        println("Ganador de las partidas... " + ganador );
     }
 
     private void print(Object line){
