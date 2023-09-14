@@ -11,7 +11,6 @@ public class Tablero {
     public Tablero(){
         cargarPosiciones();
     }
-
     /**
      * Hace las conversiones de la posicion de la matriz a una posicion de solo numeros ej: la posicion 0,0 es el 1 y 2,1 es la 8
      */
@@ -86,7 +85,15 @@ public class Tablero {
                 cont[0]=0; cont[1]=0; cont[2]=0;
             }
         }
-        
         return raya;
+    }
+
+    public boolean lleno(){
+        int cont=0;
+        for(int i=0; i<9; i++){
+            int col=i%3, row=i/3;
+            cont = tablero[row][col] == 'X' | tablero[row][col] == 'O'? ++cont : cont; 
+        }
+        return cont==9? true: false;
     }
 }

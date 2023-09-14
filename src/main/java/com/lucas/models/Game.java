@@ -56,7 +56,12 @@ public class Game implements GameInterfaz {
                         jugadores.get(i).setPuntos(jugadores.get(i).getPuntos()+1);
                         println("Ganador de la ronda, "+jugadores.get(i).getName() + " / Puntos: " + jugadores.get(i).getPuntos());
                         nextRound(); 
-                    }   
+                        break;
+                    }
+                    else if(tablero.lleno()){
+                        println("Ronda empatada!... ");
+                        nextRound();
+                    }
                 }
             }
         }
@@ -74,7 +79,7 @@ public class Game implements GameInterfaz {
 
     @Override
     public void nextRound() {
-        print("Jugar otra ronda? Y(yes)/N(no): ");
+        print("Jugar otra ronda? Y(si)/N(no): ");
         String opcion = scan.next();
         println("");
 
